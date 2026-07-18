@@ -1,0 +1,36 @@
+# Lefthook configuration for @kagchi/robochi
+# https://github.com/evilmartians/lefthook
+
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,ts,jsx,tsx,json,jsonc}"
+      run: bunx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
+      stage_fixed: true
+    type-check:
+      run: bun run type-check
+
+commit-msg:
+  commands:
+    conventional-commit:
+      run: |
+        commit_msg=$(cat {1})
+        if ! echo "$commit_msg" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: .{1,}'; then
+          echo "Error: Commit message must follow Conventional Commits format"
+          echo "Example: feat(scope): add new feature"
+          echo "Types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert"
+          exit 1
+        fi
+
+pre-push:
+  parallel: false
+  commands:
+    biome-check:
+      run: bun run check
+    type-check:
+      run: bun run type-check
+    test:
+      run: bun test
+    build:
+      run: bun run build

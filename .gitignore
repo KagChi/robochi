@@ -48,3 +48,6 @@ Thumbs.db
 tmp/
 temp/
 *.tmp
+
+# Lefthook
+lefthook-local.yml

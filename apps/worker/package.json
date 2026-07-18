@@ -1,21 +1,20 @@
 {
-	"name": "@kagchi/robochi-cli",
+	"name": "@kagchi/robochi-worker",
 	"version": "0.0.0",
 	"type": "module",
-	"bin": {
-		"robochi": "./src/index.ts"
-	},
 	"scripts": {
 		"dev": "bun run ./src/index.ts",
 		"build": "bun build ./src/index.ts --outdir ./dist --target bun",
-		"start": "bun run ./src/index.ts",
+		"start": "bun run ./dist/index.js",
 		"type-check": "tsc --noEmit",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf ./dist"
 	},
 	"dependencies": {
-		"@kagchi/robochi-core": "workspace:*"
+		"@kagchi/robochi-core": "workspace:*",
+		"octokit": "^4.0.2",
+		"zod": "^4.4.3"
 	},
 	"devDependencies": {
-		"@types/bun": "^1.3.14"
+		"@types/bun": "latest"
 	}
 }

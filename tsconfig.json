@@ -3,14 +3,17 @@
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleResolution": "bundler",
+		"lib": ["ESNext"],
+		"types": ["bun-types"],
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true,
 		"resolveJsonModule": true,
 		"allowSyntheticDefaultImports": true,
-		"types": ["@types/bun"]
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist"]
+		"forceConsistentCasingInFileNames": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	}
 }
