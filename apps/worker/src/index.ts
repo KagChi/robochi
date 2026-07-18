@@ -25,8 +25,8 @@ async function main() {
 				for (const issue of issues) {
 					logger.info(`Issue #${issue.number}: ${issue.title}`, {
 						state: issue.state,
-						author: issue.user.login,
-						labels: issue.labels.map((l) => l.name),
+						author: issue.user?.login,
+						labels: issue.labels.map((l) => (typeof l === "string" ? l : l.name)),
 						created: issue.created_at,
 						updated: issue.updated_at,
 						url: issue.html_url
@@ -48,7 +48,7 @@ async function main() {
 
 		logger.info("Worker stopped");
 	} catch (error) {
-		logger.error("Fatal error:", error instanceof Error ? error.message : error);
+		logger.error("Fatal error:", error instanceof Error ? { error: error.message } : {});
 		process.exit(1);
 	}
 }

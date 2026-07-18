@@ -29,7 +29,7 @@ const pinoLogger = pino({
 });
 
 export const logger = {
-	info: (message: string) => pinoLogger.info(message),
-	error: (message: string) => pinoLogger.error(message),
-	warn: (message: string) => pinoLogger.warn(message)
+	info: (message: string, meta?: object) => pinoLogger.info(meta ?? {}, message),
+	error: (message: string, meta?: object) => pinoLogger.error(meta ?? {}, message),
+	warn: (message: string, meta?: object) => pinoLogger.warn(meta ?? {}, message)
 };

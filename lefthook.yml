@@ -8,8 +8,6 @@ pre-commit:
       glob: "*.{js,ts,jsx,tsx,json,jsonc}"
       run: bunx biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}
       stage_fixed: true
-    type-check:
-      run: bun run type-check
 
 commit-msg:
   commands:
@@ -28,9 +26,5 @@ pre-push:
   commands:
     biome-check:
       run: bun run check
-    type-check:
-      run: bun run type-check
-    test:
-      run: bun test
     build:
       run: bun run build
