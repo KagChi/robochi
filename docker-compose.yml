@@ -1,0 +1,26 @@
+services:
+  robochi-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: robochi-worker
+    volumes:
+      - worktrees:/worktrees
+      - data:/data
+      - repo:/app/repo
+    environment:
+      - GH_TOKEN=${GH_TOKEN}
+      - GH_REPO=${GH_REPO}
+      - POLL_INTERVAL=${POLL_INTERVAL:-30000}
+      - AI_API_BASE_URL=${AI_API_BASE_URL}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL=${AI_MODEL}
+      - WORKTREE_BASE_PATH=/worktrees
+      - REPO_PATH=/app/repo
+      - DB_PATH=/data/robochi.db
+    restart: unless-stopped
+
+volumes:
+  worktrees:
+  data:
+  repo:

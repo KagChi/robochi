@@ -51,3 +51,12 @@ temp/
 
 # Lefthook
 lefthook-local.yml
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+data/
+
+# Worktrees
+worktrees/

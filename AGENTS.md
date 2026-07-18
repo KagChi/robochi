@@ -282,6 +282,48 @@ This project is licensed under **GNU General Public License v3.0 (GPL-3.0)**. Al
 
 ---
 
+## Docker Usage
+
+### Building and Running
+
+The project includes Docker support for containerized deployment:
+
+```bash
+# Build the Docker image
+docker-compose build
+
+# Start the container
+docker-compose up -d
+
+# View logs
+docker-compose logs -f robochi-worker
+
+# Stop the container
+docker-compose down
+```
+
+### IMPORTANT: Docker Session Guidelines
+
+**DO NOT automatically run `docker-compose up` on every session.** The Docker container should only be started:
+- During initial setup/testing
+- When explicitly requested by the user
+- After making changes that require Docker verification
+
+The container runs with `restart: unless-stopped` policy, so it will continue running between sessions.
+
+**Docker Command Restrictions**:
+- **ONLY** use `docker-compose logs` or `docker logs` to check container logs
+- **DO NOT** run any other Docker commands (build, up, down, restart, exec, etc.) unless explicitly requested by the user
+
+### Docker Architecture
+
+- **Base Image**: oven/bun:latest with git and ca-certificates
+- **Volumes**: 
+  - `worktrees:/worktrees` - Git worktree storage
+  - `data:/data` - SQLite database storage
+- **Environment**: Configured via `.env` file (see `.env.example`)
+- **Command**: Runs worker directly (`bun run apps/worker/src/index.ts`)
+
 ## Quick Reference
 
 **File Structure**:
@@ -291,6 +333,8 @@ robochi/
 │   └── worker/           # GitHub polling service
 ├── packages/
 │   └── core/             # Shared utilities
+├── Dockerfile            # Docker image definition
+├── docker-compose.yml    # Docker orchestration
 ├── biome.json            # Linting and formatting config
 ├── lefthook.yml          # Git hooks configuration
 ├── tsconfig.json         # TypeScript configuration
@@ -304,4 +348,6 @@ bun run check:fix        # Lint and format
 bun run type-check       # Verify types
 bun run build            # Build all packages
 bun run dev              # Run in development mode
+docker-compose build     # Build Docker image
+docker-compose up -d     # Start container
 ```

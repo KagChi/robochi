@@ -4,14 +4,15 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun run ./src/index.ts",
-		"build": "bun build ./src/index.ts --outdir ./dist --target bun",
-		"start": "bun run ./dist/index.js",
+		"build": "bun build ./src/index.ts --compile --target=bun-linux-$(uname -m | sed 's/x86_64/x64/;s/aarch64/arm64/') --outfile ./dist/robochi-worker",
+		"start": "./dist/robochi-worker",
 		"type-check": "tsc --noEmit",
 		"clean": "rm -rf ./dist"
 	},
 	"dependencies": {
 		"@kagchi/robochi-core": "workspace:*",
 		"octokit": "^4.0.2",
+		"openai": "^6.48.0",
 		"zod": "^4.4.3"
 	},
 	"devDependencies": {
